@@ -1,7 +1,7 @@
 import express from 'express';
 import config from './config.js';
 import db from './firebase.js';
-
+import './bot.js';
 const app = express();
 
 app.use(express.json());
