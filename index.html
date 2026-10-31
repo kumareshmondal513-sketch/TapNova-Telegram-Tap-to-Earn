@@ -1,82 +1,386 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TapNova Tap-to-Earn</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#101323">
+    <meta name="description"
+          content="TapNova - Telegram Tap to Earn">
+
+    <title>TapNova - Tap to Earn</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="manifest" href="./manifest.json">
+
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0f172a;
-            color: #ffffff;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .container {
-            text-align: center;
-        }
-        .coin {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
-            user-select: none;
-            transition: transform 0.1s ease;
-            margin: 20px auto;
-        }
-        .coin:active {
-            transform: scale(0.92);
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        #score {
-            font-size: 48px;
-            font-weight: bold;
-            color: #fbbf24;
-            margin: 10px 0;
-        }
-    </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <h1>TapNova Mini App</h1>
-        <p>ট্যাপ করে কয়েন আয় করুন!</p>
-        <div id="score">0</div>
-        <div class="coin" id="tapButton">🪙</div>
+<div id="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="brand">
+            <div class="brand-icon">⚡</div>
+
+            <div>
+                <h2>TapNova</h2>
+                <span>Tap. Earn. Grow.</span>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button id="languageBtn" class="icon-button">
+                বাংলা
+            </button>
+
+            <button id="notificationBtn"
+                    class="icon-button">
+                🔔
+            </button>
+        </div>
+
+    </header>
+
+
+    <!-- USER PROFILE -->
+
+    <section class="user-section">
+
+        <div class="user-avatar" id="userAvatar">
+            👤
+        </div>
+
+        <div class="user-details">
+            <h3 id="userName">Welcome to TapNova</h3>
+            <p id="userId">Telegram User</p>
+        </div>
+
+        <div class="level-badge">
+            <span>LEVEL</span>
+            <strong id="userLevel">1</strong>
+        </div>
+
+    </section>
+
+
+    <!-- MAIN BALANCE -->
+
+    <main>
+
+        <section class="balance-card">
+
+            <p class="balance-label">
+                TOTAL COINS
+            </p>
+
+            <div class="balance-value">
+                <span>🪙</span>
+                <strong id="coinBalance">0</strong>
+            </div>
+
+            <div class="balance-footer">
+                <span>TapNova Balance</span>
+                <span id="balanceStatus">Loading...</span>
+            </div>
+
+        </section>
+
+
+        <!-- ENERGY -->
+
+        <section class="energy-card">
+
+            <div class="energy-header">
+                <span>⚡ Energy</span>
+
+                <strong>
+                    <span id="currentEnergy">0</span>
+                    /
+                    <span id="maxEnergy">1000</span>
+                </strong>
+            </div>
+
+            <div class="energy-bar">
+                <div id="energyProgress"
+                     class="energy-progress"
+                     style="width: 0%">
+                </div>
+            </div>
+
+            <div class="energy-footer">
+                <span id="energyRegeneration">
+                    Energy regenerating
+                </span>
+
+                <button id="energyUpgradeBtn">
+                    Upgrade
+                </button>
+            </div>
+
+        </section>
+
+
+        <!-- TAP AREA -->
+
+        <section class="tap-section">
+
+            <h3>Tap to Earn Coins</h3>
+
+            <p>Tap the coin to earn rewards</p>
+
+            <button id="tapButton"
+                    class="tap-button"
+                    type="button">
+
+                <span class="tap-coin">🪙</span>
+
+            </button>
+
+            <div class="tap-info">
+                <span>Reward per tap</span>
+                <strong id="tapReward">+1 Coin</strong>
+            </div>
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <section class="quick-actions">
+
+            <button data-page="tasks">
+                <span>📋</span>
+                <strong>Tasks</strong>
+            </button>
+
+            <button data-page="ads">
+                <span>📺</span>
+                <strong>Ads</strong>
+            </button>
+
+            <button data-page="referrals">
+                <span>👥</span>
+                <strong>Invite</strong>
+            </button>
+
+            <button data-page="wallet">
+                <span>💰</span>
+                <strong>Wallet</strong>
+            </button>
+
+        </section>
+
+
+        <!-- DAILY REWARD -->
+
+        <section class="daily-card">
+
+            <div>
+                <h3>🎁 Daily Reward</h3>
+                <p>Claim your daily bonus</p>
+            </div>
+
+            <button id="dailyRewardBtn">
+                Claim
+            </button>
+
+        </section>
+
+
+        <!-- PAGE CONTENT -->
+
+        <section id="pageContent">
+
+            <div id="homePage" class="page active">
+
+                <h3>Welcome to TapNova</h3>
+
+                <p>
+                    Start tapping and collect coins.
+                    Complete tasks to earn more rewards.
+                </p>
+
+            </div>
+
+
+            <div id="tasksPage" class="page hidden">
+
+                <h2>📋 Tasks</h2>
+
+                <div id="taskList">
+                    <p>Loading tasks...</p>
+                </div>
+
+            </div>
+
+
+            <div id="adsPage" class="page hidden">
+
+                <h2>📺 Advertisement</h2>
+
+                <div id="adList">
+                    <p>Loading advertisements...</p>
+                </div>
+
+                <div id="energyAdSection">
+                    <h3>⚡ Energy Refill</h3>
+                    <p>Watch an eligible ad to refill energy.</p>
+                </div>
+
+            </div>
+
+
+            <div id="referralsPage" class="page hidden">
+
+                <h2>👥 Referral Program</h2>
+
+                <div class="referral-card">
+                    <p>Your referral code</p>
+
+                    <strong id="referralCode">
+                        Loading...
+                    </strong>
+
+                    <button id="copyReferralBtn">
+                        Copy Code
+                    </button>
+                </div>
+
+                <p>
+                    Total invited:
+                    <strong id="referralCount">0</strong>
+                </p>
+
+            </div>
+
+
+            <div id="walletPage" class="page hidden">
+
+                <h2>💰 Wallet</h2>
+
+                <p>
+                    Available coins:
+                    <strong id="walletBalance">0</strong>
+                </p>
+
+                <button id="withdrawBtn">
+                    Withdraw
+                </button>
+
+                <div id="withdrawalHistory">
+                    <h3>Withdrawal History</h3>
+                </div>
+
+            </div>
+
+
+            <div id="profilePage" class="page hidden">
+
+                <h2>👤 My Profile</h2>
+
+                <p id="profileName">Name: Loading...</p>
+                <p id="profileTelegramId">Telegram ID: Loading...</p>
+
+                <h3>Transaction History</h3>
+
+                <div id="transactionHistory">
+                    Loading...
+                </div>
+
+            </div>
+
+
+            <div id="leaderboardPage" class="page hidden">
+
+                <h2>🏆 Leaderboard</h2>
+
+                <div id="leaderboardList">
+                    Loading...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <nav class="bottom-navigation">
+
+        <button class="nav-item active"
+                data-page="home">
+
+            <span>🏠</span>
+            <small>Home</small>
+
+        </button>
+
+        <button class="nav-item"
+                data-page="tasks">
+
+            <span>📋</span>
+            <small>Tasks</small>
+
+        </button>
+
+        <button class="nav-item"
+                data-page="referrals">
+
+            <span>👥</span>
+            <small>Invite</small>
+
+        </button>
+
+        <button class="nav-item"
+                data-page="leaderboard">
+
+            <span>🏆</span>
+            <small>Rank</small>
+
+        </button>
+
+        <button class="nav-item"
+                data-page="profile">
+
+            <span>👤</span>
+            <small>Profile</small>
+
+        </button>
+
+    </nav>
+
+
+    <!-- NOTIFICATION -->
+
+    <div id="toast" class="toast hidden">
+        Notification
     </div>
 
-    <script>
-        // টেলিগ্রাম ওয়েব অ্যাপ ইনিশিয়ালাইজ করা
-        const tg = window.Telegram.WebApp;
-        tg.expand();
 
-        let score = 0;
-        const scoreDisplay = document.getElementById('score');
-        const tapButton = document.getElementById('tapButton');
+    <!-- LOADING -->
 
-        tapButton.addEventListener('click', () => {
-            score += 1;
-            scoreDisplay.textContent = score;
+    <div id="loadingScreen" class="loading-screen">
 
-            // টেলিগ্রাম হ্যাপটিক ফিডব্যাক (ট্যাপ করলে হালকা ভাইব্রেট করবে)
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('light');
-            }
-        });
-    </script>
+        <div class="loading-logo">⚡</div>
+
+        <h2>TapNova</h2>
+
+        <p>Loading your account...</p>
+
+    </div>
+
+</div>
+
+
+<script type="module" src="./app.js"></script>
+
 </body>
 </html>

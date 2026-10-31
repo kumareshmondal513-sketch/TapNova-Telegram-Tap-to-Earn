@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#101027">
+
+  <title>TapNova Admin Panel</title>
+
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+    body {
+      background: #101027;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 16px;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .admin-title {
+      font-size: 23px;
+      font-weight: bold;
+    }
+
+    .admin-subtitle {
+      color: #aaa9c8;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .admin-card {
+      background: #1c1b3c;
+      border: 1px solid #34325d;
+      border-radius: 14px;
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .admin-card h3 {
+      font-size: 13px;
+      color: #b8b6d7;
+      margin: 0 0 12px;
+    }
+
+    .admin-value {
+      font-size: 23px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .admin-section {
+      margin-top: 25px;
+    }
+
+    .admin-section h2 {
+      font-size: 17px;
+      margin-bottom: 12px;
+    }
+
+    .admin-menu {
+      display: grid;
+      gap: 10px;
+    }
+
+    .admin-menu button {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #34325d;
+      border-radius: 12px;
+      background: #1c1b3c;
+      color: #ffffff;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    .admin-menu button:active {
+      background: #302b60;
+    }
+
+    .admin-status {
+      margin-top: 20px;
+      padding: 13px;
+      border-radius: 10px;
+      background: #292342;
+      color: #f4d58a;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .admin-back {
+      border: 1px solid #514b83;
+      background: #25214d;
+      color: #fff;
+      padding: 9px 13px;
+      border-radius: 9px;
+    }
+
+    @media (min-width: 700px) {
+      body {
+        max-width: 850px;
+        margin: auto;
+      }
+
+      .admin-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .admin-menu {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="admin-header">
+    <div>
+      <div class="admin-title">TapNova Admin</div>
+      <div class="admin-subtitle">
+        Management Dashboard
+      </div>
+    </div>
+
+    <button
+      class="admin-back"
+      onclick="history.back()"
+      type="button">
+      ফিরে যান
+    </button>
+  </header>
+
+  <main>
+
+    <section class="admin-grid">
+
+      <div class="admin-card">
+        <h3>মোট ইউজার</h3>
+        <div class="admin-value" id="totalUsers">—</div>
+      </div>
+
+      <div class="admin-card">
+        <h3>সক্রিয় ইউজার</h3>
+        <div class="admin-value" id="activeUsers">—</div>
+      </div>
+
+      <div class="admin-card">
+        <h3>মোট কয়েন</h3>
+        <div class="admin-value" id="totalCoins">—</div>
+      </div>
+
+      <div class="admin-card">
+        <h3>পেন্ডিং উইথড্র</h3>
+        <div class="admin-value" id="pendingWithdrawals">—</div>
+      </div>
+
+    </section>
+
+    <section class="admin-section">
+      <h2>ইউজার ম্যানেজমেন্ট</h2>
+
+      <div class="admin-menu">
+        <button type="button" data-admin-page="users">
+          👥 ইউজার তালিকা
+        </button>
+
+        <button type="button" data-admin-page="user-search">
+          🔎 ইউজার খুঁজুন
+        </button>
+
+        <button type="button" data-admin-page="user-block">
+          🚫 ব্লক / আনব্লক
+        </button>
+
+        <button type="button" data-admin-page="transactions">
+          📜 লেনদেনের ইতিহাস
+        </button>
+      </div>
+    </section>
+
+    <section class="admin-section">
+      <h2>টাস্ক ও বিজ্ঞাপন</h2>
+
+      <div class="admin-menu">
+        <button type="button" data-admin-page="tasks">
+          📋 টাস্ক পরিচালনা
+        </button>
+
+        <button type="button" data-admin-page="ads">
+          📢 বিজ্ঞাপন পরিচালনা
+        </button>
+
+        <button type="button" data-admin-page="rewards">
+          🪙 রিওয়ার্ড সেটিংস
+        </button>
+
+        <button type="button" data-admin-page="referrals">
+          🔗 রেফারেল সেটিংস
+        </button>
+      </div>
+    </section>
+
+    <section class="admin-section">
+      <h2>উইথড্র ও নিরাপত্তা</h2>
+
+      <div class="admin-menu">
+        <button type="button" data-admin-page="withdrawals">
+          💳 উইথড্র রিকোয়েস্ট
+        </button>
+
+        <button type="button" data-admin-page="admin-roles">
+          🛡️ অ্যাডমিন রোল
+        </button>
+
+        <button type="button" data-admin-page="settings">
+          ⚙️ অ্যাপ সেটিংস
+        </button>
+
+        <button type="button" data-admin-page="security">
+          🔐 নিরাপত্তা লগ
+        </button>
+      </div>
+    </section>
+
+    <div class="admin-status" id="adminStatus">
+      অ্যাডমিন তথ্য লোড হওয়ার অপেক্ষায়।
+      এই পেজে প্রবেশের আগে সার্ভার থেকে
+      অ্যাডমিন পরিচয় ও অনুমতি যাচাই করতে হবে।
+    </div>
+
+  </main>
+
+  <script src="./admin.js"></script>
+
+</body>
+</html>

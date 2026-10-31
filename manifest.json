@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "TapNova - Tap to Earn",
+  "short_name": "TapNova",
+  "description": "TapNova Telegram Tap-to-Earn Mini App",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#101027",
+  "theme_color": "#101027",
+  "categories": [
+    "games",
+    "entertainment"
+  ],
+  "lang": "bn"
+}
